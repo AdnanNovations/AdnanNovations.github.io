@@ -84745,20 +84745,20 @@ p.toString
 A.dS(p).toString
 r=r.d
 if(r==null){r=self.window.devicePixelRatio
-if(r===0)r=1}r=s.dh(0,r).b-280
+if(r===0)r=1}r=s.dh(0,r).b
 s=r}r=A.T(a)
 p=A.T(a)
 o=A.j3().$0()
 if(A.aN(a).aN(j))n=36
-else n=A.aN(a).aN(i)?24:12
+else n=A.aN(a).aN(i)?24:16
 n=o.dt(B.i,n)
 o=A.j3().$0()
 if(A.aN(a).aN(j))m=50
-else m=A.aN(a).aN(i)?28:14
+else m=A.aN(a).aN(i)?28:20
 m=o.dt(B.i,m)
 o=A.nW().$0()
 if(A.aN(a).aN(j))l=80
-else l=A.aN(a).aN(i)?46:20
+else l=A.aN(a).aN(i)?46:38
 n=p.p2.RQ(o.dt(B.ab,l),m,n)
 m=A.hA(5)
 l=A.j3().$0()
@@ -89684,7 +89684,7 @@ B.DE=new A.aP(-38e3)
 B.DF=new A.fl(16,0,24,0)
 B.ac=new A.ap(0,0,0,0)
 B.jo=new A.ap(0,0,0,10)
-B.DG=new A.ap(0,0,0,20)
+B.DG=new A.ap(0,0,0,60)
 B.DH=new A.ap(0,0,30,0)
 B.DI=new A.ap(0,20,0,20)
 B.jp=new A.ap(0,30,0,0)
