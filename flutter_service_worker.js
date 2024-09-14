@@ -3,9 +3,9 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/AssetManifest.bin": "fc3669e70454357e1b222f8adbfb23ed",
-"assets/AssetManifest.bin.json": "bad23acdc333c55f349e0c29498cc7b3",
-"assets/AssetManifest.json": "3664c3aa225ed48cd75a0370ac7740a3",
+const RESOURCES = {"assets/AssetManifest.bin": "ae543125800bba53bc140dcbaab3c98c",
+"assets/AssetManifest.bin.json": "441fffe2ccb74fce981a67ca98110c3d",
+"assets/AssetManifest.json": "36bb9a066f224ada4727a43623700df3",
 "assets/assets/circles_1.png": "82f27e73fb85b595def59df2097d2d6b",
 "assets/assets/logo.png": "afbf863a6a1a449f3049a772faa447b0",
 "assets/assets/me.png": "27144925889e00a3c84e576358ed50a0",
@@ -18,6 +18,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "fc3669e70454357e1b222f8adbfb23ed
 "assets/assets/portfolios/artenov_teacher.jpg": "4060491a7f699c439e416e798cc51f85",
 "assets/assets/portfolios/bmp.jpg": "856b4884fc6cd0a9e35ee591b35dc3c3",
 "assets/assets/portfolios/car_mobile_spaj.jpg": "690bd131152d724385abd91b7bd4a055",
+"assets/assets/portfolios/cbt.png": "6468404d28912432d9069c19ca1efeb5",
 "assets/assets/portfolios/feedback.jpg": "68327c06efd0b11c839203c28d999ea1",
 "assets/assets/portfolios/labuan_bajo.jpg": "74e45bc5485046f6d114d70b0cfdbde3",
 "assets/assets/portfolios/lolbooth.jpg": "caa0515565abfec15d9bb7b7fca9b703",
@@ -73,16 +74,16 @@ const RESOURCES = {"assets/AssetManifest.bin": "fc3669e70454357e1b222f8adbfb23ed
 "canvaskit/skwasm.worker.js": "89990e8c92bcb123999aa81f7e203b1c",
 "favicon.png": "3b62018cf9ff1b4e4edf6ab4ecb1abd5",
 "flutter.js": "f393d3c16b631f36852323de8e583132",
-"flutter_bootstrap.js": "2e0f47e121e6154cfd8d1b4f73a1820c",
+"flutter_bootstrap.js": "93f01e1b8db3421927f362da77447651",
 "icons/Icon-192.png": "a6aa00d09de20fb940fa84171b58c6f4",
 "icons/Icon-512.png": "90696e6def30c65ca8df5034f8c98b1d",
 "icons/Icon-maskable-192.png": "9a9fb87578bfd29fe2a93a9b07dec8ca",
 "icons/Icon-maskable-512.png": "ba3a00d310b9b2548055f01b9f140add",
 "index.html": "8313751c4f66a0a780bd3569bc83aacf",
 "/": "8313751c4f66a0a780bd3569bc83aacf",
-"main.dart.js": "104db9f73f470e4d64e656aa1f026b9a",
+"main.dart.js": "6b744cc1ef9d4c5b5718acbb1866fc62",
 "manifest.json": "7c3cd4266489990be70faf49ddc4af0e",
-"version.json": "12a92ef79835b40a6093bcc932b54998"};
+"version.json": "0cf48d9f22108eab63a7b2cbb8746c44"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
