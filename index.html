@@ -71,6 +71,12 @@
     <div class="loading-text">Loading...</div>
   </div>
   <script>
+    // Configure Flutter to use WASM for better compatibility and performance
+    window.flutterConfiguration = {
+      renderer: "auto",
+      useWebAssembly: true
+    };
+
     window.addEventListener('load', function() {
       setTimeout(function() {
         var loading = document.getElementById('loading');
@@ -79,6 +85,11 @@
         }
       }, 100);
     });
+
+    // Error handling
+    window.addEventListener('error', function(e) {
+      console.error('Flutter loading error:', e);
+    }, true);
   </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
