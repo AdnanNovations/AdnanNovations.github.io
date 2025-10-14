@@ -19,12 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <!-- Relaxed CSP for in-app browsers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
-
   <meta name="description" content="Ifan Adnan">
-  <meta name="referrer" content="no-referrer-when-downgrade">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -76,64 +71,53 @@
     <div class="loading-text">Loading...</div>
   </div>
   <script>
-    // Comprehensive configuration for in-app browser compatibility
+    // Force HTML renderer for maximum in-app browser compatibility
     window.flutterConfiguration = {
-      renderer: "html",
-      // Disable service worker which can cause issues in in-app browsers
-      serviceWorkerVersion: null
+      renderer: "html"
     };
 
+    // Don't hide loading too early - wait for Flutter to actually render
     var flutterReady = false;
-    var loadingDiv = null;
 
-    // Safer DOM ready check
-    function init() {
-      loadingDiv = document.getElementById('loading');
+    // This will be called by Flutter when it's ready
+    window.addEventListener('flutter-first-frame', function() {
+      flutterReady = true;
+      var loading = document.getElementById('loading');
+      if (loading) {
+        loading.style.display = 'none';
+      }
+    });
 
-      // Listen for Flutter ready event
-      window.addEventListener('flutter-first-frame', function() {
-        console.log('Flutter first frame rendered');
-        flutterReady = true;
-        if (loadingDiv) {
-          loadingDiv.style.display = 'none';
-        }
-      });
-
-      // Fallback timeout
-      setTimeout(function() {
-        if (!flutterReady && loadingDiv) {
-          console.error('Flutter failed to initialize within 15 seconds');
-          loadingDiv.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px; font-family: sans-serif;">' +
+    // Fallback: hide loading after 10 seconds if Flutter still hasn't loaded
+    setTimeout(function() {
+      if (!flutterReady) {
+        var loading = document.getElementById('loading');
+        if (loading) {
+          loading.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px;">' +
             '<p style="font-size: 18px; margin-bottom: 10px;">Unable to load app</p>' +
-            '<p style="font-size: 14px; color: #999; margin: 10px 0;">Please try:</p>' +
-            '<p style="font-size: 14px; margin: 5px 0;">1. Opening in your default browser</p>' +
-            '<p style="font-size: 14px; margin: 5px 0;">2. Refreshing the page</p>' +
-            '<p style="font-size: 14px; margin: 5px 0;">3. Checking your internet connection</p>' +
-            '<button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #D4AF37; border: none; border-radius: 5px; color: #000; font-size: 16px; cursor: pointer;">Reload</button>' +
+            '<p style="font-size: 14px; color: #999;">Please try:</p>' +
+            '<p style="font-size: 14px;">1. Opening in your default browser</p>' +
+            '<p style="font-size: 14px;">2. Refreshing the page</p>' +
+            '<p style="font-size: 14px;">3. Checking your internet connection</p>' +
+            '<button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #D4AF37; border: none; border-radius: 5px; color: #000; font-size: 16px; cursor: pointer;">Reload</button>' +
             '</div>';
         }
-      }, 15000);
+        console.error('Flutter failed to initialize within 10 seconds');
+      }
+    }, 10000);
 
-      // Error handling
-      window.addEventListener('error', function(e) {
-        console.error('Flutter loading error:', e.message, e.filename, e.lineno);
-        if (!flutterReady && loadingDiv) {
-          loadingDiv.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px; font-family: sans-serif;">' +
-            '<p style="font-size: 18px; margin-bottom: 10px;">Loading error occurred</p>' +
-            '<p style="font-size: 14px; color: #999;">' + (e.message || 'Unknown error') + '</p>' +
-            '<button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #D4AF37; border: none; border-radius: 5px; color: #000; font-size: 16px; cursor: pointer;">Reload</button>' +
-            '</div>';
-        }
-      }, true);
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
+    // Error handling
+    window.addEventListener('error', function(e) {
+      console.error('Flutter loading error:', e);
+      var loading = document.getElementById('loading');
+      if (loading && !flutterReady) {
+        loading.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px;">' +
+          '<p style="font-size: 18px;">Loading error occurred</p>' +
+          '<button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #D4AF37; border: none; border-radius: 5px; color: #000; font-size: 16px; cursor: pointer;">Reload</button>' +
+          '</div>';
+      }
+    }, true);
   </script>
-  <script src="flutter_bootstrap.js" defer></script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
