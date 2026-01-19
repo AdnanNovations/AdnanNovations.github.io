@@ -1,11 +1,11 @@
 {
-    "name": "portofolio",
-    "short_name": "portofolio",
+    "name": "Ifan Adnan",
+    "short_name": "Ifan Adnan",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "Ifan Portofolio",
+    "background_color": "#000000",
+    "theme_color": "#D4AF37",
+    "description": "Ifan Adnan's Professional Portfolio",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

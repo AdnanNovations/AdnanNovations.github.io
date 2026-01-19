@@ -19,7 +19,23 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Ifan Adnan">
+  <meta name="description" content="Ifan Adnan - Portfolio">
+
+  <!-- SEO meta tags -->
+  <meta name="keywords" content="Ifan Adnan, Portfolio, Developer, Software Engineer">
+  <meta name="author" content="Ifan Adnan">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ifan Adnan - Portfolio">
+  <meta property="og:description" content="Ifan Adnan's Professional Portfolio">
+  <meta property="og:image" content="icons/Icon-512.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ifan Adnan - Portfolio">
+  <meta name="twitter:description" content="Ifan Adnan's Professional Portfolio">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -63,18 +79,193 @@
       font-family: 'Josefin Sans', sans-serif;
       font-size: 18px;
     }
+    /* In-app browser warning styles */
+    .inapp-warning {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .inapp-warning.show {
+      display: flex;
+    }
+    .inapp-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .inapp-title {
+      color: #D4AF37;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .inapp-message {
+      color: #999;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 16px;
+      text-align: center;
+      max-width: 300px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+    .inapp-btn {
+      padding: 15px 30px;
+      background: #D4AF37;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+      margin-bottom: 15px;
+      min-width: 200px;
+    }
+    .inapp-btn:hover {
+      background: #e5c04b;
+    }
+    .inapp-btn-secondary {
+      padding: 12px 25px;
+      background: transparent;
+      border: 2px solid #D4AF37;
+      border-radius: 8px;
+      color: #D4AF37;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    .inapp-steps {
+      color: #666;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px;
+      text-align: left;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
   </style>
 </head>
 <body>
+  <!-- In-app browser warning overlay -->
+  <div class="inapp-warning" id="inapp-warning">
+    <div class="inapp-icon">🌐</div>
+    <div class="inapp-title">Open in Browser</div>
+    <div class="inapp-message">
+      For the best experience, please open this page in your default browser.
+    </div>
+    <button class="inapp-btn" onclick="openInBrowser()">Open in Browser</button>
+    <button class="inapp-btn-secondary" onclick="continueAnyway()">Continue Anyway</button>
+    <div class="inapp-steps" id="inapp-steps"></div>
+  </div>
+
   <div class="loading" id="loading">
     <div class="spinner"></div>
     <div class="loading-text">Loading...</div>
   </div>
   <script>
-    // Force HTML renderer for maximum in-app browser compatibility
-    window.flutterConfiguration = {
-      renderer: "html"
-    };
+    // Detect in-app browsers (Facebook, Instagram, WhatsApp, etc.)
+    function isInAppBrowser() {
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      // Check for common in-app browser identifiers
+      var inAppPatterns = [
+        'FBAN',           // Facebook App
+        'FBAV',           // Facebook App Version
+        'FB_IAB',         // Facebook In-App Browser
+        'Instagram',      // Instagram
+        'Line/',          // Line App
+        'Twitter',        // Twitter/X
+        'Snapchat',       // Snapchat
+        'LinkedInApp',    // LinkedIn
+        'Pinterest',      // Pinterest
+        'TikTok',         // TikTok
+        'BytedanceWebview', // TikTok/Douyin webview
+        'musical_ly',     // TikTok (old name)
+        'WhatsApp'        // WhatsApp (limited detection)
+      ];
+
+      for (var i = 0; i < inAppPatterns.length; i++) {
+        if (ua.indexOf(inAppPatterns[i]) > -1) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // Get the detected app name for better UX
+    function getInAppBrowserName() {
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      if (ua.indexOf('FBAN') > -1 || ua.indexOf('FBAV') > -1 || ua.indexOf('FB_IAB') > -1) return 'Facebook';
+      if (ua.indexOf('Instagram') > -1) return 'Instagram';
+      if (ua.indexOf('Line/') > -1) return 'Line';
+      if (ua.indexOf('Twitter') > -1) return 'Twitter';
+      if (ua.indexOf('Snapchat') > -1) return 'Snapchat';
+      if (ua.indexOf('LinkedInApp') > -1) return 'LinkedIn';
+      if (ua.indexOf('Pinterest') > -1) return 'Pinterest';
+      if (ua.indexOf('TikTok') > -1 || ua.indexOf('BytedanceWebview') > -1 || ua.indexOf('musical_ly') > -1) return 'TikTok';
+      if (ua.indexOf('WhatsApp') > -1) return 'WhatsApp';
+      return 'this app';
+    }
+
+    // Open URL in external browser
+    function openInBrowser() {
+      var url = window.location.href;
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      var isAndroid = /Android/.test(navigator.userAgent);
+
+      if (isAndroid) {
+        // Try intent for Android
+        window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+      } else if (isIOS) {
+        // For iOS, try to open in Safari
+        // Safari uses x-safari-https scheme (may not always work)
+        window.open(url, '_system');
+      }
+
+      // Fallback: copy URL and show instructions
+      setTimeout(function() {
+        showManualInstructions();
+      }, 500);
+    }
+
+    function showManualInstructions() {
+      var appName = getInAppBrowserName();
+      var steps = document.getElementById('inapp-steps');
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+      if (isIOS) {
+        steps.innerHTML = '<strong>Manual steps:</strong><br>' +
+          '1. Tap the ••• or share button<br>' +
+          '2. Select "Open in Safari" or "Open in Browser"';
+      } else {
+        steps.innerHTML = '<strong>Manual steps:</strong><br>' +
+          '1. Tap the ⋮ menu (top right)<br>' +
+          '2. Select "Open in Chrome" or "Open in Browser"';
+      }
+    }
+
+    function continueAnyway() {
+      document.getElementById('inapp-warning').classList.remove('show');
+      sessionStorage.setItem('inapp-dismissed', 'true');
+    }
+
+    // Check for in-app browser on page load
+    if (isInAppBrowser() && !sessionStorage.getItem('inapp-dismissed')) {
+      var warning = document.getElementById('inapp-warning');
+      var appName = getInAppBrowserName();
+      warning.querySelector('.inapp-message').innerHTML =
+        'You are viewing this in ' + appName + '\'s browser.<br>For the best experience, please open in your default browser.';
+      warning.classList.add('show');
+      showManualInstructions();
+    }
 
     // Don't hide loading too early - wait for Flutter to actually render
     var flutterReady = false;
@@ -88,23 +279,29 @@
       }
     });
 
-    // Fallback: hide loading after 10 seconds if Flutter still hasn't loaded
+    // Fallback: hide loading after 15 seconds if Flutter still hasn't loaded
     setTimeout(function() {
       if (!flutterReady) {
         var loading = document.getElementById('loading');
         if (loading) {
-          loading.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px;">' +
+          var isInApp = isInAppBrowser();
+          var message = isInApp ?
+            '<p style="font-size: 18px; margin-bottom: 10px;">Unable to load in this browser</p>' +
+            '<p style="font-size: 14px; color: #999;">This app works best in a regular browser.</p>' +
+            '<p style="font-size: 14px; color: #999;">Please open in Chrome, Safari, or Firefox.</p>' :
             '<p style="font-size: 18px; margin-bottom: 10px;">Unable to load app</p>' +
             '<p style="font-size: 14px; color: #999;">Please try:</p>' +
-            '<p style="font-size: 14px;">1. Opening in your default browser</p>' +
-            '<p style="font-size: 14px;">2. Refreshing the page</p>' +
-            '<p style="font-size: 14px;">3. Checking your internet connection</p>' +
+            '<p style="font-size: 14px;">1. Refreshing the page</p>' +
+            '<p style="font-size: 14px;">2. Checking your internet connection</p>';
+
+          loading.innerHTML = '<div style="color: #D4AF37; text-align: center; padding: 20px;">' +
+            message +
             '<button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #D4AF37; border: none; border-radius: 5px; color: #000; font-size: 16px; cursor: pointer;">Reload</button>' +
             '</div>';
         }
-        console.error('Flutter failed to initialize within 10 seconds');
+        console.error('Flutter failed to initialize within 15 seconds');
       }
-    }, 10000);
+    }, 15000);
 
     // Error handling
     window.addEventListener('error', function(e) {
