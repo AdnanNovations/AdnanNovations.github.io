@@ -172,6 +172,31 @@
     <div class="loading-text">Loading...</div>
   </div>
   <script>
+    // Strip UTM and tracking query params before Flutter/GetX initializes.
+    // With usePathUrlStrategy(), GetX receives the full URL path + query as the
+    // initial route. Since no getPage matches "/?utm_source=ig&...", GetX shows
+    // a blank screen. Removing these params lets GetX see a clean "/" route.
+    (function() {
+      if (window.location.search) {
+        var params = new URLSearchParams(window.location.search);
+        var trackingKeys = [
+          'utm_source', 'utm_medium', 'utm_campaign',
+          'utm_content', 'utm_term', 'utm_id',
+          'fbclid', 'gclid', 'msclkid', 'twclid', 'igshid'
+        ];
+        var modified = false;
+        trackingKeys.forEach(function(key) {
+          if (params.has(key)) { params.delete(key); modified = true; }
+        });
+        if (modified) {
+          var newUrl = window.location.pathname;
+          if (params.toString()) newUrl += '?' + params.toString();
+          window.history.replaceState(null, '', newUrl);
+        }
+      }
+    })();
+  </script>
+  <script>
     // Detect in-app browsers (Facebook, Instagram, WhatsApp, etc.)
     function isInAppBrowser() {
       var ua = navigator.userAgent || navigator.vendor || window.opera;
